@@ -8,15 +8,6 @@ plugins {
     alias(libs.plugins.crashlytics) apply false
 }
 
-// Added repositories block to point to your local 'libs' folder
-repositories {
-    google()
-    mavenCentral()
-    flatDir {
-        dirs("libs")
-    }
-}
-
 val hasGoogleServices = file("google-services.json").exists()
 val gitHash = execute("git", "rev-parse", "HEAD").take(7)
 val gitCount = execute("git", "rev-list", "--count", "HEAD").toInt()
@@ -74,10 +65,6 @@ kotlin {
 
 dependencies {
     implementation(project(":common"))
-    
-    // Added your local JAudiotagger JAR
-    implementation(files("libs/jaudiotagger.jar"))
-
     implementation(libs.kotlin.reflect)
     implementation(libs.bundles.androidx)
     implementation(libs.material)
