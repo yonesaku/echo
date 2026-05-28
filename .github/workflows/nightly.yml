@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      VERSION: $( echo ${{ github.event.head_commit.id }} | cut -c1-7 )
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -24,23 +22,14 @@ jobs:
           java-version: 17
           cache: 'gradle'
 
-      - name: Cook Google Services
-        if: ${{ secrets.GOOGLE_SERVICES_B64 != '' }}
-        run: echo "${{ secrets.GOOGLE_SERVICES_B64 }}" | base64 -d > app/google-services.json
-
-      - name: Remove Google Services if empty
-        if: ${{ secrets.GOOGLE_SERVICES_B64 == '' }}
-        run: rm -f app/google-services.json
-
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: |
-          ./gradlew assembleNightly
-          cp app/build/outputs/apk/nightly/app-nightly.apk app/build/${{ env.VERSION }}.apk
+        run: ./gradlew assembleNightly
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
+          name: app-nightly
           path: app/build/outputs/apk/nightly/app-nightly.apk
