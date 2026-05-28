@@ -22,6 +22,7 @@ import dev.brahmkshatriya.echo.common.models.ImageHolder.Companion.toResourceUri
 import dev.brahmkshatriya.echo.common.models.Streamable
 import dev.brahmkshatriya.echo.common.models.Track
 import dev.brahmkshatriya.echo.common.settings.Settings
+import dev.brahmkshatriya.echo.extensions.builtin.offline.MediaStoreUtils.getAllSongs
 import dev.brahmkshatriya.echo.extensions.builtin.unified.UnifiedExtension.Companion.EXTENSION_ID
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
