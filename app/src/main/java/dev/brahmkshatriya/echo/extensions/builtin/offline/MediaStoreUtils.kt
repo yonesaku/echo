@@ -234,7 +234,7 @@ object MediaStoreUtils {
     // Ensure you copy those functions below this point in your actual file.
     
     // ... (include all other functions from your original file here) ...
-}
+
 
 
     private val coverUri = "content://media/external/audio/albumart".toUri()
