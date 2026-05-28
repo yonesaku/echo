@@ -24,9 +24,6 @@ jobs:
           java-version: 17
           cache: 'gradle'
 
-      - name: Cook KeyStore
-        run: echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.jks
-
       - name: Cook Google Services
         if: ${{ secrets.GOOGLE_SERVICES_B64 != '' }}
         run: echo "${{ secrets.GOOGLE_SERVICES_B64 }}" | base64 -d > app/google-services.json
@@ -40,11 +37,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew assembleNightly \
-          -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/signing-key.jks \
-          -Pandroid.injected.signing.store.password=${{ secrets.PASSWORD }} \
-          -Pandroid.injected.signing.key.alias=key0 \
-          -Pandroid.injected.signing.key.password=${{ secrets.PASSWORD }}
+          ./gradlew assembleNightly
           cp app/build/outputs/apk/nightly/app-nightly.apk app/build/${{ env.VERSION }}.apk
 
       - name: Upload APK
