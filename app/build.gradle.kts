@@ -65,6 +65,10 @@ kotlin {
 
 dependencies {
     implementation(project(":common"))
+    
+    // JAudiotagger dependency
+    implementation(files("libs/jaudiotagger.jar"))
+
     implementation(libs.kotlin.reflect)
     implementation(libs.bundles.androidx)
     implementation(libs.material)
